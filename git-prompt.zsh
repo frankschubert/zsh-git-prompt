@@ -14,28 +14,28 @@ function git_current_branch() {
 function git_status_is_clean() {
     if in_git_repos; then
         local lines=$(git status --porcelain | egrep -v '^\?\? ' | wc -l)
-        test $lines = 0
+        test $lines -lt 1
     fi
 }
 
 function git_unknown_files() {
     if in_git_repos; then
         local lines=$(git status --porcelain | egrep '^\?\? ' | wc -l)
-        test $lines = 0
+        test $lines -lt 1
     fi
 }
 
 function git_stash_is_clean() {
     if in_git_repos; then
         local lines=$(git stash list | wc -l)
-        test $lines = 0
+        test $lines -lt 1
     fi
 }
 
 function git_no_branches() {
     if in_git_repos; then
         local lines=$(git branch | wc -l)
-        test $lines = 1
+        test $lines -eq 1
     fi
 }
 
